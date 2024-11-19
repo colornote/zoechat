@@ -1,20 +1,23 @@
 'use client'
 
 import { createContext, MutableRefObject } from 'react'
-import { Chat, ChatMessage, Persona } from './interface'
+import { Chat, Sacle, ChatMessage, Persona } from './interface'
 
 const ChatContext = createContext<{
   debug?: boolean
   personaPanelType: string
   DefaultPersonas: Persona[]
+  DefaultSacles: Sacle[]
   currentChatRef?: MutableRefObject<Chat | undefined>
   chatList: Chat[]
+  sacleList: Sacle[]
   personas: Persona[]
   isOpenPersonaModal?: boolean
   editPersona?: Persona
   personaModalLoading?: boolean
   openPersonaPanel?: boolean
   toggleSidebar?: boolean
+  toggleChatList?: boolean
   onOpenPersonaModal?: () => void
   onClosePersonaModal?: () => void
   setCurrentChat?: (chat: Chat) => void
@@ -32,7 +35,9 @@ const ChatContext = createContext<{
 }>({
   personaPanelType: 'chat',
   DefaultPersonas: [],
+  DefaultSacles: [],
   chatList: [],
+  sacleList: [],
   personas: []
 })
 

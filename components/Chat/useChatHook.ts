@@ -1,12 +1,30 @@
 'use client'
 
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import { use, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { v4 as uuid } from 'uuid'
 import { ChatGPInstance } from './Chat'
-import { Chat, ChatMessage, Persona } from './interface'
+import { Chat, Sacle, ChatMessage, Persona } from './interface'
+
+export const DefaultSacles: Sacle[] = [
+  {
+    id: 'sacle1',
+    name: 'Sacle 1',
+    description: 'Sacle 1 description'
+  },
+  {
+    id: 'sacle2',
+    name: 'Sacle 2',
+    description: 'Sacle 2 description'
+  },
+  {
+    id: 'sacle3',
+    name: 'Sacle 3',
+    description: 'Sacle 3 description'
+  }
+]
 
 export const DefaultPersonas: Persona[] = [
   {
@@ -35,7 +53,9 @@ export const DefaultPersonas: Persona[] = [
 
 enum StorageKeys {
   Chat_List = 'chatList',
-  Chat_Current_ID = 'chatCurrentID'
+  Sacle_List = 'sacleList',
+  Chat_Current_ID = 'chatCurrentID',
+  Sacle_Current_ID = 'sacleCurrentID'
 }
 
 const uploadFiles = async (files: File[]) => {
@@ -70,6 +90,8 @@ const useChatHook = () => {
 
   const [chatList, setChatList] = useState<Chat[]>([])
 
+  const [sacleList, setSacleList] = useState<Sacle[]>([])
+
   const [personas, setPersonas] = useState<Persona[]>([])
 
   const [editPersona, setEditPersona] = useState<Persona | undefined>()
@@ -83,6 +105,9 @@ const useChatHook = () => {
   const [personaPanelType, setPersonaPanelType] = useState<string>('')
 
   const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)
+
+  const [toggleChatList, setToggleChatList] = useState<boolean>(false)
+
 
   const onOpenPersonaPanel = (type: string = 'chat') => {
     setPersonaPanelType(type)
@@ -132,6 +157,10 @@ const useChatHook = () => {
 
   const onToggleSidebar = useCallback(() => {
     setToggleSidebar((state) => !state)
+  }, [])
+
+  const onToggleChatList = useCallback(() => {
+    setToggleChatList((state) => !state)
   }, [])
 
   const onDeleteChat = (chat: Chat) => {
@@ -266,6 +295,7 @@ const useChatHook = () => {
     chatRef,
     currentChatRef,
     chatList,
+    sacleList,
     personas,
     editPersona,
     isOpenPersonaModal,

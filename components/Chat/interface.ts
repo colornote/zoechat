@@ -19,4 +19,10 @@ export interface Chat {
   messages?: ChatMessage[]
 }
 
+export interface Sacle {
+  id: string
+  name?: string
+  description?: string
+}
+
 export type ChatRole = 'assistant' | 'user' | 'system'
