@@ -5,13 +5,10 @@ import { Box, Flex, IconButton, ScrollArea, Text, Tabs } from '@radix-ui/themes'
 import cs from 'classnames'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { BiEdit, BiMessageDetail, BiPlusCircle, BiTable } from 'react-icons/bi'
-import { FiPlus } from 'react-icons/fi'
 import { RiRobot2Line } from 'react-icons/ri'
 import ChatContext from './chatContext'
 
 import './index.scss'
-import { set } from 'react-hook-form'
-import { Fa500Px } from 'react-icons/fa'
 
 export const ChatSideBar = () => {
   const {
@@ -20,7 +17,6 @@ export const ChatSideBar = () => {
     sacleList,
     DefaultPersonas,
     toggleSidebar,
-    toggleChatList,
     onDeleteChat,
     onChangeChat,
     onCreateChat,

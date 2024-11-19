@@ -5,7 +5,7 @@ import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Avatar, Flex, Heading, IconButton, Select, Tooltip } from '@radix-ui/themes'
 import cs from 'classnames'
 import NextLink from 'next/link'
-import { FaAdjust, FaGithub, FaMoon, FaRegSun, FaUser } from 'react-icons/fa'
+import { FaAdjust, FaMoon, FaRegSun, FaUser } from 'react-icons/fa'
 import { Link } from '../Link'
 import { useTheme } from '../Themes'
 

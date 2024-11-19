@@ -106,8 +106,6 @@ const useChatHook = () => {
 
   const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)
 
-  const [toggleChatList, setToggleChatList] = useState<boolean>(false)
-
 
   const onOpenPersonaPanel = (type: string = 'chat') => {
     setPersonaPanelType(type)
@@ -157,10 +155,6 @@ const useChatHook = () => {
 
   const onToggleSidebar = useCallback(() => {
     setToggleSidebar((state) => !state)
-  }, [])
-
-  const onToggleChatList = useCallback(() => {
-    setToggleChatList((state) => !state)
   }, [])
 
   const onDeleteChat = (chat: Chat) => {
@@ -294,6 +288,7 @@ const useChatHook = () => {
   return {
     debug,
     DefaultPersonas,
+    DefaultSacles, // 添加 DefaultSacles
     chatRef,
     currentChatRef,
     chatList,
