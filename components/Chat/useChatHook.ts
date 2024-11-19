@@ -11,17 +11,17 @@ import { Chat, Sacle, ChatMessage, Persona } from './interface'
 export const DefaultSacles: Sacle[] = [
   {
     id: 'sacle1',
-    name: 'Sacle 1',
+    name: '黑暗核心人格测试',
     description: 'Sacle 1 description'
   },
   {
     id: 'sacle2',
-    name: 'Sacle 2',
+    name: '社交焦虑测试',
     description: 'Sacle 2 description'
   },
   {
     id: 'sacle3',
-    name: 'Sacle 3',
+    name: '多重人格交叉测试',
     description: 'Sacle 3 description'
   }
 ]
@@ -250,6 +250,8 @@ const useChatHook = () => {
     } else {
       onCreateChat(DefaultPersonas[0])
     }
+
+    setSacleList(DefaultSacles) // 将 DefaultSacles 的值赋予 sacleList
 
     return () => {
       document.body.removeAttribute('style')

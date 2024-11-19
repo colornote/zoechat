@@ -4,13 +4,14 @@ import React, { useContext } from 'react'
 import { Box, Flex, IconButton, ScrollArea, Text, Tabs } from '@radix-ui/themes'
 import cs from 'classnames'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { BiMessageDetail, BiPlusCircle, BiTable } from 'react-icons/bi'
+import { BiEdit, BiMessageDetail, BiPlusCircle, BiTable } from 'react-icons/bi'
 import { FiPlus } from 'react-icons/fi'
 import { RiRobot2Line } from 'react-icons/ri'
 import ChatContext from './chatContext'
 
 import './index.scss'
 import { set } from 'react-hook-form'
+import { Fa500Px } from 'react-icons/fa'
 
 export const ChatSideBar = () => {
   const {
@@ -31,12 +32,12 @@ export const ChatSideBar = () => {
     <Flex direction="column" className={cs('chat-side-bar', { show: toggleSidebar })}>
       <Flex className="p-2 h-full overflow-hidden w-64" direction="column" gap="3">
         <Tabs.Root defaultValue="account" className="p-2 h-full overflow-hidden w-64">
-          <Tabs.List>
-            <Tabs.Trigger value="account">
+          <Tabs.List className="flex justify-between">
+            <Tabs.Trigger value="account" className="flex-1 flex justify-center">
               <BiTable className="size-4" />
               <Text>量表</Text>
             </Tabs.Trigger>
-            <Tabs.Trigger value="documents">
+            <Tabs.Trigger value="documents" className="flex-1 flex justify-center">
               <BiMessageDetail className="size-4" />
               <Text>Chat</Text>
             </Tabs.Trigger>
@@ -56,7 +57,7 @@ export const ChatSideBar = () => {
                       onClick={() => onChangeChat?.(sacle)}
                     >
                       <Flex gap="2" align="center" className="overflow-hidden whitespace-nowrap">
-                        <BiMessageDetail className="size-4" />
+                        <BiEdit className="size-4" />
                         <Text as="p" className="truncate">
                           {sacle.name}
                         </Text>
