@@ -5,7 +5,7 @@ import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Avatar, Flex, Heading, IconButton, Select, Tooltip } from '@radix-ui/themes'
 import cs from 'classnames'
 import NextLink from 'next/link'
-import { FaAdjust, FaGithub, FaMoon, FaRegSun } from 'react-icons/fa'
+import { FaAdjust, FaGithub, FaMoon, FaRegSun, FaUser } from 'react-icons/fa'
 import { Link } from '../Link'
 import { useTheme } from '../Themes'
 
@@ -25,7 +25,7 @@ export const Header = () => {
       <Flex align="center" gap="3">
         <NextLink href="/">
           <Heading as="h2" size="4" style={{ maxWidth: 200 }}>
-            ChatGPT Lite
+            Zoe Chat
           </Heading>
         </NextLink>
         <Flex align="center" gap="3" className="ml-auto">
@@ -34,8 +34,8 @@ export const Header = () => {
             size="2"
             radius="full"
             fallback={
-              <Link href="https://github.com/blrchen/chatgpt-lite">
-                <FaGithub />
+              <Link href="">
+                <FaUser />
               </Link>
             }
           />
