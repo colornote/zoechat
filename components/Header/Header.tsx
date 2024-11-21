@@ -29,6 +29,16 @@ export const Header = () => {
           </Heading>
         </NextLink>
         <Flex align="center" gap="3" className="ml-auto">
+          <NextLink href="/register">
+            <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+              注册
+            </Heading>
+          </NextLink>
+          <NextLink href="/login">
+            <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+              登录
+            </Heading>
+          </NextLink>
           <Avatar
             color="gray"
             size="2"

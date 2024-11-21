@@ -11,10 +11,10 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/chat',
+        destination: '/home',
         permanent: true
       }
-    ]
+    ];
   },
   logging: {
     fetches: {
