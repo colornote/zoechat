@@ -10,12 +10,11 @@ function RegistrationPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // 在这里处理注册逻辑,例如调用API
+        // 在这里处理登录逻辑,例如调用API
         console.log('Email:', email);
         console.log('Password:', password);
-        console.log('Confirm Password:', confirmPassword);
     };
 
     return (

@@ -9,7 +9,7 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // 在这里处理登录逻辑,例如调用API
         console.log('Email:', email);
