@@ -4,18 +4,29 @@
 
 import React, { useState } from 'react';
 import * as Label from '@radix-ui/react-label';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../../hooks/useAuth';
+
 
 function RegistrationPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const { register } = useAuth();
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // 在这里处理登录逻辑,例如调用API
-        console.log('Email:', email);
-        console.log('Password:', password);
+
+        try {
+            await register(email, password);
+            router.push('/login');
+        } catch (error) {
+            console.error('注册失败', error);
+        }
     };
+
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">

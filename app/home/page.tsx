@@ -1,8 +1,5 @@
 'use client'
 
-import React, { useState } from 'react';
-
-
 export default function Home() {
   return <main className="p-4">
     <div className="min-h-screen bg-gray-100">
@@ -45,3 +42,32 @@ export default function Home() {
     </div>
   </main>
 }
+
+
+// // pages/dashboard.tsx
+// import { useEffect } from 'react';
+// import { useRouter } from 'next/router';
+// import { useAuth } from '../hooks/useAuth';
+
+// const DashboardPage = () => {
+//   const { user } = useAuth();
+//   const router = useRouter();
+
+//   useEffect(() => {
+//     if (!user) {
+//       // 未登录，重定向到登录页面
+//       router.push('/login');
+//     }
+//   }, [user, router]);
+
+//   if (!user) {
+//     return <div>Loading...</div>;
+//   }
+
+//   return (
+//     // 仪表盘内容 JSX
+//     // ...
+//   );
+// };
+
+// export default DashboardPage;

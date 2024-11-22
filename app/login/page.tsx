@@ -1,19 +1,25 @@
 'use client';
 
-// LoginPage.js
-
 import React, { useState } from 'react';
 import * as Label from '@radix-ui/react-label';
+import { useAuth } from '../../hooks/useAuth';
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
 
-    const handleSubmit = (e: React.FormEvent) => {
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // 在这里处理登录逻辑,例如调用API
-        console.log('Email:', email);
-        console.log('Password:', password);
+
+        try {
+            await login(email, password);
+            // 登录成功后的操作，如重定向到仪表盘页面
+        } catch (error) {
+            console.error('登录失败', error);
+        }
     };
 
     return (
