@@ -19,10 +19,25 @@ function RegistrationPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        // Check length of password
+        if (password.length < 6) {
+            alert('密码长度至少为6个字符');
+            return;
+        }
+
+        // Check if password and confirm password match
+        if (password !== confirmPassword) {
+            alert('密码和确认密码不匹配');
+            return;
+        }
+
+
         try {
             await register(email, password);
+            alert('注册成功');
             router.push('/login');
         } catch (error) {
+            alert('注册失败，请检查您的邮箱和密码');
             console.error('注册失败', error);
         }
     };

@@ -1,17 +1,20 @@
 'use client'
 
+// Header.tsx
 import { useCallback, useState } from 'react'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Avatar, Flex, Heading, IconButton, Select, Tooltip } from '@radix-ui/themes'
 import cs from 'classnames'
 import NextLink from 'next/link'
 import { FaAdjust, FaMoon, FaRegSun, FaUser } from 'react-icons/fa'
+import { useAuth } from '../../hooks/useAuth'
 import { Link } from '../Link'
 import { useTheme } from '../Themes'
 
 export const Header = () => {
   const { theme, setTheme } = useTheme()
   const [, setShow] = useState(false)
+  const { user, logout } = useAuth()
 
   const toggleNavBar = useCallback(() => {
     setShow((state) => !state)
@@ -29,26 +32,37 @@ export const Header = () => {
           </Heading>
         </NextLink>
         <Flex align="center" gap="3" className="ml-auto">
-          <NextLink href="/register">
-            <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
-              注册
-            </Heading>
-          </NextLink>
-          <NextLink href="/login">
-            <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
-              登录
-            </Heading>
-          </NextLink>
-          <Avatar
-            color="gray"
-            size="2"
-            radius="full"
-            fallback={
-              <Link href="">
-                <FaUser />
-              </Link>
-            }
-          />
+          {user ? (
+            <>
+              <Avatar
+                color="gray"
+                size="2"
+                radius="full"
+                fallback={
+                  <Link href="">
+                    <FaUser />
+                  </Link>
+                }
+              />
+               <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+                {user.name}
+              </Heading>
+              <button onClick={logout}>退出</button>
+            </>
+          ) : (
+            <>
+              <NextLink href="/register">
+                <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+                  注册
+                </Heading>
+              </NextLink>
+              <NextLink href="/login">
+                <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+                  登录
+                </Heading>
+              </NextLink>
+            </>
+          )}
           <Select.Root value={theme} onValueChange={setTheme}>
             <Select.Trigger radius="full" />
             <Select.Content>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import * as Label from '@radix-ui/react-label';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/useAuth';
 
 function LoginPage() {
@@ -9,16 +10,16 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const { login } = useAuth();
 
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // 在这里处理登录逻辑,例如调用API
 
         try {
             await login(email, password);
-            // 登录成功后的操作，如重定向到仪表盘页面
+            alert('登录成功'); // Show alert on successful login
+            window.location.href = '/';
         } catch (error) {
             console.error('登录失败', error);
+            alert('登录失败，请检查您的邮箱和密码'); // Show alert on login failure
         }
     };
 
