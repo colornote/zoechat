@@ -17,8 +17,8 @@ import { FiSend } from 'react-icons/fi'
 import ChatContext from './chatContext'
 import type { Chat, ChatMessage } from './interface'
 import Message from './Message'
-import ScaleTest from './ScaleTest'
 import ScaleResult from './ScaleResult'
+import ScaleTest from './ScaleTest'
 
 import './index.scss'
 

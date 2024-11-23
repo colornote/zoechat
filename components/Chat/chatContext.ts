@@ -1,43 +1,70 @@
 'use client'
 
 import { createContext, MutableRefObject } from 'react'
-import { Chat, Sacle, ChatMessage, Persona } from './interface'
+import { ChatGPInstance } from './Chat'
+import { Chat, ChatMessage, Persona, Scale, ScaleResult } from './interface'
 
-const ChatContext = createContext<{
+interface ChatContextProps {
   debug?: boolean
   personaPanelType: string
   DefaultPersonas: Persona[]
-  DefaultSacles: Sacle[]
+  DefaultSacles: Scale[]
   currentChatRef?: MutableRefObject<Chat | undefined>
+  chatRef?: MutableRefObject<ChatGPInstance | null>
   chatList: Chat[]
-  sacleList: Sacle[]
+  sacleList: Scale[]
   personas: Persona[]
-  isOpenPersonaModal?: boolean
   editPersona?: Persona
-  personaModalLoading?: boolean
-  openPersonaPanel?: boolean
-  toggleSidebar?: boolean
+  isOpenPersonaModal: boolean
+  personaModalLoading: boolean
+  openPersonaPanel: boolean
+  toggleSidebar: boolean
   onOpenPersonaModal?: () => void
   onClosePersonaModal?: () => void
-  setCurrentChat?: (chat: Chat) => void
-  onCreatePersona?: (persona: Persona) => void
+  onCreateChat?: (persona: Persona) => void
   onDeleteChat?: (chat: Chat) => void
+  onChangeChat?: (chat: Chat) => void
+  onCreatePersona?: (values: any) => void
   onDeletePersona?: (persona: Persona) => void
   onEditPersona?: (persona: Persona) => void
-  onCreateChat?: (persona: Persona) => void
-  onChangeChat?: (chat: Chat) => void
   saveMessages?: (messages: ChatMessage[]) => void
   onOpenPersonaPanel?: (type?: string) => void
   onClosePersonaPanel?: () => void
   onToggleSidebar?: () => void
   forceUpdate?: () => void
-}>({
+  currentScale: Scale | null
+  currentQuestion: number
+  answers: Map<string, string>
+  showResult: boolean
+  testResult: ScaleResult | null
+  startTest: (scale: Scale) => void
+  handleAnswer: (questionId: string, optionId: string) => void
+  retakeTest: () => void
+  closeTest: () => void
+  selectedAnswers: Map<string, string>
+}
+
+const ChatContext = createContext<ChatContextProps>({
   personaPanelType: 'chat',
   DefaultPersonas: [],
   DefaultSacles: [],
   chatList: [],
   sacleList: [],
-  personas: []
+  personas: [],
+  isOpenPersonaModal: false,
+  personaModalLoading: false,
+  openPersonaPanel: false,
+  toggleSidebar: false,
+  currentScale: null,
+  currentQuestion: 0,
+  answers: new Map(),
+  showResult: false,
+  testResult: null,
+  selectedAnswers: new Map(),
+  startTest: () => { },
+  handleAnswer: () => { },
+  retakeTest: () => { },
+  closeTest: () => { }
 })
 
 export default ChatContext

@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { v4 as uuid } from 'uuid'
 import { ChatGPInstance } from './Chat'
-import { Chat, Sacle, ChatMessage, Persona, Question, Option, ScaleResult } from './interface'
+import { Chat, Scale, ChatMessage, Persona, Question, Option, ScaleResult } from './interface'
 
 export const DefaultSacles: Scale[] = [
   {
@@ -119,7 +119,7 @@ const useChatHook = () => {
 
   const [chatList, setChatList] = useState<Chat[]>([])
 
-  const [sacleList, setSacleList] = useState<Sacle[]>([])
+  const [sacleList, setSacleList] = useState<Scale[]>([])
 
   const [personas, setPersonas] = useState<Persona[]>([])
 
