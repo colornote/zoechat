@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Button } from '@radix-ui/themes';
-import { Scale, Question } from './interface';
+import type { Scale } from './interface';
 
 interface ScaleTestProps {
     scale: Scale;

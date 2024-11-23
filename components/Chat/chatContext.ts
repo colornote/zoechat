@@ -2,17 +2,15 @@
 
 import { createContext, MutableRefObject } from 'react'
 import { ChatGPInstance } from './Chat'
-import { Chat, ChatMessage, Persona, Scale, ScaleResult } from './interface'
+import { Chat, ChatMessage, Persona } from './interface'
 
 interface ChatContextProps {
   debug?: boolean
   personaPanelType: string
   DefaultPersonas: Persona[]
-  DefaultSacles: Scale[]
   currentChatRef?: MutableRefObject<Chat | undefined>
   chatRef?: MutableRefObject<ChatGPInstance | null>
   chatList: Chat[]
-  sacleList: Scale[]
   personas: Persona[]
   editPersona?: Persona
   isOpenPersonaModal: boolean
@@ -32,39 +30,21 @@ interface ChatContextProps {
   onClosePersonaPanel?: () => void
   onToggleSidebar?: () => void
   forceUpdate?: () => void
-  currentScale: Scale | null
-  currentQuestion: number
-  answers: Map<string, string>
-  showResult: boolean
-  testResult: ScaleResult | null
-  startTest: (scale: Scale) => void
-  handleAnswer: (questionId: string, optionId: string) => void
-  retakeTest: () => void
-  closeTest: () => void
-  selectedAnswers: Map<string, string>
+  shouldShowWelcome: boolean
+  setShouldShowWelcome: (show: boolean) => void
 }
 
 const ChatContext = createContext<ChatContextProps>({
   personaPanelType: 'chat',
   DefaultPersonas: [],
-  DefaultSacles: [],
   chatList: [],
-  sacleList: [],
   personas: [],
   isOpenPersonaModal: false,
   personaModalLoading: false,
   openPersonaPanel: false,
   toggleSidebar: false,
-  currentScale: null,
-  currentQuestion: 0,
-  answers: new Map(),
-  showResult: false,
-  testResult: null,
-  selectedAnswers: new Map(),
-  startTest: () => { },
-  handleAnswer: () => { },
-  retakeTest: () => { },
-  closeTest: () => { }
+  shouldShowWelcome: true,
+  setShouldShowWelcome: () => { },
 })
 
 export default ChatContext

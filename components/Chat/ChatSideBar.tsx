@@ -4,9 +4,11 @@ import React, { useContext } from 'react'
 import { Box, Flex, IconButton, ScrollArea, Text, Tabs } from '@radix-ui/themes'
 import cs from 'classnames'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { BiEdit, BiMessageDetail, BiPlusCircle, BiTable } from 'react-icons/bi'
+import { BiMessageDetail, BiPlusCircle, BiTable } from 'react-icons/bi'
 import { RiRobot2Line } from 'react-icons/ri'
 import ChatContext from './chatContext'
+import type { Scale } from './interface'
+import ScaleContext from './scaleContext'
 
 import './index.scss'
 
@@ -14,15 +16,31 @@ export const ChatSideBar = () => {
   const {
     currentChatRef,
     chatList,
-    sacleList,
     DefaultPersonas,
     toggleSidebar,
     onDeleteChat,
     onChangeChat,
     onCreateChat,
     onOpenPersonaPanel,
-    startTest
   } = useContext(ChatContext)
+
+  const {
+    sacleList,
+    startTest,
+    showTest,
+    closeTest
+  } = useContext(ScaleContext)
+
+  const handleChatClick = (chat: any) => {
+    if (showTest) {
+      closeTest();
+    }
+    onChangeChat?.(chat);
+  };
+
+  const handleScaleClick = (scale: Scale) => {
+    startTest(scale);
+  };
 
   return (
     <Flex direction="column" className={cs('chat-side-bar', { show: toggleSidebar })}>
@@ -48,7 +66,7 @@ export const ChatSideBar = () => {
                       key={scale.id}
                       width="auto"
                       className="bg-token-surface hover:bg-gray-100 active:scale-95 cursor-pointer p-3 rounded-lg"
-                      onClick={() => startTest(scale)}
+                      onClick={() => handleScaleClick(scale)}
                     >
                       <Flex direction="column" gap="1">
                         <Text as="div" className="font-medium">{scale.name}</Text>
@@ -78,7 +96,7 @@ export const ChatSideBar = () => {
                       className={cs('bg-token-surface active:scale-95 truncate cursor-pointer', {
                         active: currentChatRef?.current?.id === chat.id
                       })}
-                      onClick={() => onChangeChat?.(chat)}
+                      onClick={() => handleChatClick(chat)}
                     >
                       <Flex gap="2" align="center" className="overflow-hidden whitespace-nowrap">
                         <BiMessageDetail className="size-4" />
@@ -112,7 +130,7 @@ export const ChatSideBar = () => {
           className="bg-token-surface-primary active:scale-95 cursor-pointer"
         >
           <RiRobot2Line className="size-4" />
-          <Text>Persona Store</Text>
+          <Text>AI 助手</Text>
         </Box>
       </Flex>
     </Flex>

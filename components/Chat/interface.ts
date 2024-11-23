@@ -4,19 +4,21 @@ export interface ChatMessage {
 }
 
 export interface Persona {
-  id?: string
-  role: ChatRole
+  id: string
+  name: string
+  prompt: string
+  description?: string
   avatar?: string
-  name?: string
-  prompt?: string
   key?: string
-  isDefault?: boolean
 }
 
 export interface Chat {
   id: string
   persona?: Persona
+  title?: string
   messages?: ChatMessage[]
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface Question {
@@ -47,3 +49,5 @@ export interface Scale {
 }
 
 export type ChatRole = 'assistant' | 'user' | 'system'
+
+export { DefaultScales } from './scales'

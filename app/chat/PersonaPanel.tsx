@@ -18,7 +18,7 @@ import { AiOutlineClose, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import { LuMessageSquarePlus } from 'react-icons/lu'
 import { ChatContext, Persona } from '@/components'
 
-export interface PersonaPanelProps {}
+export interface PersonaPanelProps { }
 
 const PersonaPanel = (_props: PersonaPanelProps) => {
   const {
@@ -42,11 +42,11 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
         list.filter((item) => {
           if (type === 'chat') {
             return (
-              !item.key && (item.prompt?.includes(searchText) || item.name?.includes(searchText))
+              !item.id && (item.prompt?.includes(searchText) || item.name?.includes(searchText))
             )
           } else {
             return (
-              item.key && (item.prompt?.includes(searchText) || item.name?.includes(searchText))
+              item.name?.includes(searchText) || item.description?.includes(searchText)
             )
           }
         })

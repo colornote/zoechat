@@ -17,8 +17,10 @@ import { FiSend } from 'react-icons/fi'
 import ChatContext from './chatContext'
 import type { Chat, ChatMessage } from './interface'
 import Message from './Message'
+import ScaleContext from './scaleContext'
 import ScaleResult from './ScaleResult'
 import ScaleTest from './ScaleTest'
+import WelcomePage from './WelcomePage'
 
 import './index.scss'
 
@@ -38,7 +40,7 @@ const postChatOrQuestion = async (chat: Chat, messages: any[], input: string) =>
 
   const data = {
     prompt: chat?.persona?.prompt,
-    messages: [...messages!],
+    messages: [...messages!, { role: 'user', content: input }],
     input
   }
 
@@ -52,22 +54,49 @@ const postChatOrQuestion = async (chat: Chat, messages: any[], input: string) =>
 }
 
 const Chat = (props: ChatProps, ref: any) => {
-  const { debug, currentChatRef, saveMessages, onToggleSidebar, forceUpdate, currentScale, currentQuestion, handleAnswer, showResult, testResult, retakeTest, closeTest, answers } =
-    useContext(ChatContext)
+  const {
+    debug,
+    currentChatRef,
+    saveMessages,
+    onToggleSidebar,
+    forceUpdate,
+    onCreateChat,
+    DefaultPersonas,
+    shouldShowWelcome,
+    setShouldShowWelcome,
+  } = useContext(ChatContext)
+  const {
+    currentScale,
+    currentQuestion,
+    handleAnswer,
+    showResult,
+    testResult,
+    retakeTest,
+    closeTest,
+    answers,
+    startTest,
+    sacleList
+  } = useContext(ScaleContext)
 
   const [isLoading, setIsLoading] = useState(false)
-
   const conversationRef = useRef<ChatMessage[]>()
-
   const [message, setMessage] = useState('')
-
   const [currentMessage, setCurrentMessage] = useState<string>('')
-
   const textAreaRef = useRef<HTMLElement>(null)
-
   const conversation = useRef<ChatMessage[]>([])
-
   const bottomOfChatRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (currentChatRef?.current && (!conversation.current || conversation.current.length === 0)) {
+      const welcomeMessage = {
+        role: 'assistant' as const,
+        content: `你好！我是${currentChatRef.current.persona?.name || 'AI助手'}，很高兴为您服务。请问有什么我可以帮您的吗？`
+      }
+      conversation.current = [welcomeMessage]
+      forceUpdate?.()
+    }
+  }, [currentChatRef?.current])
+
   const sendMessage = useCallback(
     async (e: any) => {
       if (!isLoading) {
@@ -207,8 +236,24 @@ const Chat = (props: ChatProps, ref: any) => {
     }
   })
 
+  const handleStartChat = useCallback(() => {
+    setShouldShowWelcome(false)
+    onCreateChat?.(DefaultPersonas[0])
+  }, [onCreateChat, DefaultPersonas, setShouldShowWelcome])
+
+  const handleStartTest = useCallback(() => {
+    setShouldShowWelcome(false)
+    startTest(sacleList[0])
+  }, [startTest, sacleList, setShouldShowWelcome])
+
   return (
-    <div className="...">
+    <div className="h-full flex flex-col">
+      <WelcomePage
+        open={shouldShowWelcome}
+        onStartChat={handleStartChat}
+        onStartTest={handleStartTest}
+        _onClose={() => setShouldShowWelcome(false)}
+      />
       {currentScale ? (
         showResult ? (
           <ScaleResult
@@ -226,7 +271,7 @@ const Chat = (props: ChatProps, ref: any) => {
           />
         )
       ) : (
-        <Flex direction="column" height="100%" className="relative" gap="3">
+        <Flex direction="column" height="100%" className="relative">
           <Flex
             justify="between"
             align="center"
@@ -240,7 +285,7 @@ const Chat = (props: ChatProps, ref: any) => {
             className="flex-1 px-4"
             type="auto"
             scrollbars="vertical"
-            style={{ height: '100%' }}
+            style={{ height: 'calc(100% - 120px)' }}
           >
             {conversation.current.map((item, index) => (
               <Message key={index} message={item} />
@@ -248,7 +293,7 @@ const Chat = (props: ChatProps, ref: any) => {
             {currentMessage && <Message message={{ content: currentMessage, role: 'assistant' }} />}
             <div ref={bottomOfChatRef}></div>
           </ScrollArea>
-          <div className="px-4 pb-3">
+          <div className="px-4 py-3 bg-white border-t">
             <Flex align="end" justify="between" gap="3" className="relative">
               <div className="rt-TextAreaRoot rt-r-size-1 rt-variant-surface flex-1 rounded-3xl chat-textarea">
                 <ContentEditable
@@ -270,7 +315,7 @@ const Chat = (props: ChatProps, ref: any) => {
                 />
                 <div className="rt-TextAreaChrome"></div>
               </div>
-              <Flex gap="3" className="absolute right-0 pr-4 bottom-2 pt">
+              <Flex gap="3" className="absolute right-0 pr-4 bottom-2">
                 {isLoading && (
                   <Flex
                     width="6"
