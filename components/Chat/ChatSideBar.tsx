@@ -124,14 +124,14 @@ export const ChatSideBar = () => {
             </Tabs.Content>
           </Box>
         </Tabs.Root>
-        <Box
+        {/* <Box
           width="auto"
           onClick={() => onOpenPersonaPanel?.('chat')}
           className="bg-token-surface-primary active:scale-95 cursor-pointer"
         >
           <RiRobot2Line className="size-4" />
           <Text>AI 助手</Text>
-        </Box>
+        </Box> */}
       </Flex>
     </Flex>
   )
