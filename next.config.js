@@ -24,11 +24,11 @@ const nextConfig = {
   async rewrites() {
     return process.env.NODE_ENV === 'development'
       ? [
-          {
-            source: '/be/api/:path*',
-            destination: 'http://127.0.0.1:8002/be/api/:path*'
-          }
-        ]
+        {
+          source: '/be/api/:path*',
+          destination: 'http://127.0.0.1:8002/be/api/:path*'
+        }
+      ]
       : [];
   }
 }

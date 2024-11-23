@@ -6,24 +6,53 @@ import { useSearchParams } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { v4 as uuid } from 'uuid'
 import { ChatGPInstance } from './Chat'
-import { Chat, Sacle, ChatMessage, Persona } from './interface'
+import { Chat, Sacle, ChatMessage, Persona, Question, Option, ScaleResult } from './interface'
 
-export const DefaultSacles: Sacle[] = [
+export const DefaultSacles: Scale[] = [
   {
-    id: 'sacle1',
+    id: 'scale1',
     name: '黑暗核心人格测试',
-    description: 'Sacle 1 description'
+    description: '测试用户的人格黑暗面特质',
+    questions: [
+      {
+        id: 'q1',
+        content: '当他人受到伤害时，你会感到：',
+        options: [
+          { id: 'q1_1', content: '深感同情', score: 0 },
+          { id: 'q1_2', content: '无动于衷', score: 1 },
+          { id: 'q1_3', content: '暗自高兴', score: 2 }
+        ]
+      },
+      {
+        id: 'q2',
+        content: '在获取利益时，你倾向于：',
+        options: [
+          { id: 'q2_1', content: '遵守规则', score: 0 },
+          { id: 'q2_2', content: '钻制度空子', score: 1 },
+          { id: 'q2_3', content: '不择手段', score: 2 }
+        ]
+      }
+      // 可以继续添加更多问题...
+    ]
   },
   {
-    id: 'sacle2',
+    id: 'scale2',
     name: '社交焦虑测试',
-    description: 'Sacle 2 description'
-  },
-  {
-    id: 'sacle3',
-    name: '多重人格交叉测试',
-    description: 'Sacle 3 description'
+    description: '评估用户在社交场合的焦虑程度',
+    questions: [
+      {
+        id: 'q1',
+        content: '在陌生人面前发言时，你会：',
+        options: [
+          { id: 'q1_1', content: '感到自在', score: 0 },
+          { id: 'q1_2', content: '略显紧张', score: 1 },
+          { id: 'q1_3', content: '非常焦虑', score: 2 }
+        ]
+      }
+      // 可以继续添加更多问题...
+    ]
   }
+  // 可以继续添加更多量表...
 ]
 
 export const DefaultPersonas: Persona[] = [
@@ -106,6 +135,11 @@ const useChatHook = () => {
 
   const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)
 
+  const [currentScale, setCurrentScale] = useState<Scale | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [answers, setAnswers] = useState<Map<string, string>>(new Map());
+  const [showResult, setShowResult] = useState(false);
+  const [testResult, setTestResult] = useState<ScaleResult | null>(null);
 
   const onOpenPersonaPanel = (type: string = 'chat') => {
     setPersonaPanelType(type)
@@ -227,6 +261,83 @@ const useChatHook = () => {
     }
   }
 
+  const startTest = (scale: Scale) => {
+    setCurrentScale(scale);
+    setCurrentQuestion(0);
+    setAnswers(new Map());
+  };
+
+  const handleAnswer = (questionId: string, optionId: string) => {
+    setAnswers(prev => {
+      const newAnswers = new Map(prev);
+      newAnswers.set(questionId, optionId);
+      return newAnswers;
+    });
+
+    if (currentScale && currentQuestion < currentScale.questions.length - 1) {
+      setCurrentQuestion(prev => prev + 1);
+    } else if (currentScale) {
+      // 计算测试结果
+      const result = currentScale.getResult?.(answers, currentScale.questions) || {
+        totalScore: calculateScore(answers, currentScale.questions),
+        level: getLevel(calculateScore(answers, currentScale.questions)),
+        analysis: getAnalysis(calculateScore(answers, currentScale.questions)),
+        recommendations: getRecommendations(calculateScore(answers, currentScale.questions))
+      };
+      setTestResult(result);
+      setShowResult(true);
+    }
+  };
+
+  const calculateScore = (answers: Map<string, string>, questions: Question[]): number => {
+    let total = 0;
+    questions.forEach(q => {
+      const optionId = answers.get(q.id);
+      const option = q.options.find(o => o.id === optionId);
+      if (option) {
+        total += option.score;
+      }
+    });
+    return total;
+  };
+
+  const getLevel = (score: number): 'low' | 'medium' | 'high' => {
+    // 根据分数范围返回级别
+    if (score < 5) return 'low';
+    if (score < 10) return 'medium';
+    return 'high';
+  };
+
+  const getAnalysis = (score: number): string => {
+    // 根据分数返回分析文本
+    // 这里需要根据具体量表定制分析内容
+    return "基于您的测试结果，我们为您提供了个性化的分析...";
+  };
+
+  const getRecommendations = (score: number): string[] => {
+    // 根据分数返回建议列表
+    return [
+      "建议1...",
+      "建议2...",
+      "建议3..."
+    ];
+  };
+
+  const retakeTest = () => {
+    setCurrentQuestion(0);
+    setAnswers(new Map());
+    setShowResult(false);
+    setTestResult(null);
+  };
+
+  const closeTest = () => {
+    setCurrentScale(null);
+    setCurrentQuestion(0);
+    setAnswers(new Map());
+    setShowResult(false);
+    setTestResult(null);
+  };
+
   useEffect(() => {
     const chatList = (JSON.parse(localStorage.getItem(StorageKeys.Chat_List) || '[]') ||
       []) as Chat[]
@@ -312,7 +423,17 @@ const useChatHook = () => {
     onOpenPersonaPanel,
     onClosePersonaPanel,
     onToggleSidebar,
-    forceUpdate
+    forceUpdate,
+    currentScale,
+    currentQuestion,
+    answers,
+    startTest,
+    handleAnswer,
+    showResult,
+    testResult,
+    retakeTest,
+    closeTest,
+    selectedAnswers: answers
   }
 }
 

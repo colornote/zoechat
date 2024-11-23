@@ -20,43 +20,39 @@ export const ChatSideBar = () => {
     onDeleteChat,
     onChangeChat,
     onCreateChat,
-    onOpenPersonaPanel
+    onOpenPersonaPanel,
+    startTest
   } = useContext(ChatContext)
-
 
   return (
     <Flex direction="column" className={cs('chat-side-bar', { show: toggleSidebar })}>
       <Flex className="p-2 h-full overflow-hidden w-64" direction="column" gap="3">
-        <Tabs.Root defaultValue="account" className="p-2 h-full overflow-hidden w-64">
+        <Tabs.Root defaultValue="scales" className="p-2 h-full overflow-hidden w-64">
           <Tabs.List className="flex justify-between">
-            <Tabs.Trigger value="account" className="flex-1 flex justify-center">
+            <Tabs.Trigger value="scales" className="flex-1 flex justify-center">
               <BiTable className="size-4" />
               <Text>量表</Text>
             </Tabs.Trigger>
-            <Tabs.Trigger value="documents" className="flex-1 flex justify-center">
+            <Tabs.Trigger value="chat" className="flex-1 flex justify-center">
               <BiMessageDetail className="size-4" />
               <Text>Chat</Text>
             </Tabs.Trigger>
           </Tabs.List>
 
           <Box pt="3">
-            <Tabs.Content value="account">
+            <Tabs.Content value="scales">
               <ScrollArea className={cs('flex-1')} style={{ width: '100%' }} type="auto">
                 <Flex direction="column" gap="3">
-                  {sacleList.map((sacle) => (
+                  {sacleList.map((scale) => (
                     <Box
-                      key={sacle.id}
+                      key={scale.id}
                       width="auto"
-                      className={cs('bg-token-surface active:scale-95 truncate cursor-pointer', {
-                        active: currentChatRef?.current?.id === sacle.id
-                      })}
-                      onClick={() => onChangeChat?.(sacle)}
+                      className="bg-token-surface hover:bg-gray-100 active:scale-95 cursor-pointer p-3 rounded-lg"
+                      onClick={() => startTest(scale)}
                     >
-                      <Flex gap="2" align="center" className="overflow-hidden whitespace-nowrap">
-                        <BiEdit className="size-4" />
-                        <Text as="p" className="truncate">
-                          {sacle.name}
-                        </Text>
+                      <Flex direction="column" gap="1">
+                        <Text as="div" className="font-medium">{scale.name}</Text>
+                        <Text as="div" size="1" className="text-gray-500">{scale.description}</Text>
                       </Flex>
                     </Box>
                   ))}
@@ -64,7 +60,7 @@ export const ChatSideBar = () => {
               </ScrollArea>
             </Tabs.Content>
 
-            <Tabs.Content value="documents">
+            <Tabs.Content value="chat">
               <ScrollArea className={cs('flex-1')} style={{ width: '100%' }} type="auto">
                 <Flex direction="column" gap="3">
                   <Box
