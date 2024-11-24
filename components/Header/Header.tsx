@@ -5,6 +5,7 @@ import { useCallback, useState } from 'react'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { Avatar, Flex, Heading, IconButton, Select, Tooltip } from '@radix-ui/themes'
 import cs from 'classnames'
+import Image from 'next/image'
 import NextLink from 'next/link'
 import { FaAdjust, FaMoon, FaRegSun, FaUser } from 'react-icons/fa'
 import { useAuth } from '../../hooks/useAuth'
@@ -27,9 +28,19 @@ export const Header = () => {
     >
       <Flex align="center" gap="3">
         <NextLink href="/">
-          <Heading as="h2" size="4" style={{ maxWidth: 200 }}>
-            Zoe Chat
-          </Heading>
+          <Flex align="center" gap="2">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={38}
+              height={10}
+              priority
+              className="object-contain"
+            />
+            <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+              sparks.zone
+            </Heading>
+          </Flex>
         </NextLink>
         <Flex align="center" gap="3" className="ml-auto">
           {user ? (
@@ -44,7 +55,7 @@ export const Header = () => {
                   </Link>
                 }
               />
-               <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
+              <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
                 {user.name}
               </Heading>
               <button onClick={logout}>退出</button>
