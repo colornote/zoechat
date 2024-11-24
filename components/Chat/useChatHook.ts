@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { getPersonaInfo } from '@/lib/personas'
 import type { ChatGPInstance } from './Chat'
 import type { Chat, ChatMessage, Persona } from './interface'
-import { DEFAULT_PERSONA, getPersonaInfo } from '@/lib/personas'
 
 const CHAT_STORAGE_KEY = 'chat_history'
 const SHOULD_SHOW_WELCOME = 'should_show_welcome'

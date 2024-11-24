@@ -20,7 +20,7 @@ const PersonaModal = () => {
   useEffect(() => {
     if (detail) {
       setValue('name', detail.name, { shouldTouch: true })
-      setValue('prompt', detail.prompt, { shouldTouch: true })
+      setValue('prompt', { shouldTouch: true })
     }
   }, [detail, setValue])
 

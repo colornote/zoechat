@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       { content: input, role: 'user' }
     ]
 
-    console.log('Final messages structure:', messagesWithHistory)
+    // console.log('Final messages structure:', messagesWithHistory)
 
     const { apiUrl, apiKey, model } = getApiConfig()
     const stream = await getOpenAIStream(apiUrl, apiKey, model, messagesWithHistory)

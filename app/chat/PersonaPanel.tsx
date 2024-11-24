@@ -42,7 +42,7 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
         list.filter((item) => {
           if (type === 'chat') {
             return (
-              !item.id && (item.prompt?.includes(searchText) || item.name?.includes(searchText))
+              !item.id && item.name?.includes(searchText)
             )
           } else {
             return (
@@ -122,7 +122,7 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
                     {prompt.name}
                   </Text>
                   <Text as="p" size="2" className="line-clamp-2">
-                    {prompt.prompt || ''}
+
                   </Text>
                 </Box>
                 <Flex gap="3">
