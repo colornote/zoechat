@@ -39,10 +39,16 @@ const postChatOrQuestion = async (chat: Chat, messages: any[], input: string) =>
   const url = '/api/chat'
 
   const data = {
-    prompt: chat?.persona?.prompt,
+    chatId: chat?.id,
     messages: [...messages!, { role: 'user', content: input }],
     input
   }
+
+  console.log('Sending request to API:', {
+    chatId: data.chatId,
+    messagesCount: data.messages.length,
+    input: data.input
+  })
 
   return await fetch(url, {
     method: 'POST',
@@ -89,7 +95,7 @@ const Chat = (props: ChatProps, ref: any) => {
   useEffect(() => {
     if (currentChatRef?.current && (!conversation.current || conversation.current.length === 0)) {
       const welcomeMessage = {
-        role: 'assistant' as const,
+        role: 'system' as const,
         content: `你好！我是${currentChatRef.current.persona?.name || 'AI助手'}，很高兴为您服务。请问有什么我可以帮您的吗？`
       }
       conversation.current = [welcomeMessage]

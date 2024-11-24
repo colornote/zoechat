@@ -6,10 +6,8 @@ export interface ChatMessage {
 export interface Persona {
   id: string
   name: string
-  prompt: string
   description?: string
   avatar?: string
-  key?: string
 }
 
 export interface Chat {

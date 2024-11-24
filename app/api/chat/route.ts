@@ -1,5 +1,6 @@
 import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import { NextRequest, NextResponse } from 'next/server'
+import { getPersonaPrompt } from '@/lib/personas'
 
 export const runtime = 'edge'
 
@@ -10,16 +11,28 @@ export interface Message {
 
 export async function POST(req: NextRequest) {
   try {
-    const { prompt, messages, input } = (await req.json()) as {
-      prompt: string
-      messages: Message[]
-      input: string
-    }
+    const requestData = await req.json()
+    console.log('API Route received data:', {
+      chatId: requestData.chatId,
+      messagesCount: requestData.messages?.length,
+      input: requestData.input
+    })
+
+    const { chatId, messages, input } = requestData
+
+    const prompt = chatId ?
+      await getPersonaPrompt(chatId) :
+      (await getPersonaPrompt('default'))
+
+    // console.log('Using prompt:', prompt)
+
     const messagesWithHistory = [
       { content: prompt, role: 'system' },
       ...messages,
       { content: input, role: 'user' }
     ]
+
+    console.log('Final messages structure:', messagesWithHistory)
 
     const { apiUrl, apiKey, model } = getApiConfig()
     const stream = await getOpenAIStream(apiUrl, apiKey, model, messagesWithHistory)
