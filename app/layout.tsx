@@ -7,8 +7,8 @@ import '@/styles/theme-config.css'
 
 export const metadata = {
   title: {
-    default: 'ZoeChat',
-    template: `%s - ZoeChat`
+    default: 'Sparks Zone',
+    template: `%s - Sparks Zone`
   },
   description: 'AI assistant powered by ZoeChat',
   icons: {

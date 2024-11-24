@@ -37,8 +37,8 @@ export const Header = () => {
               priority
               className="object-contain"
             />
-            <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
-              sparks.zone
+            <Heading as="h2" size="4" style={{ maxWidth: 200 }}>
+              Sparks Zone
             </Heading>
           </Flex>
         </NextLink>
