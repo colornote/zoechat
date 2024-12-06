@@ -10,7 +10,7 @@ export const metadata = {
     default: 'Sparks Zone',
     template: `%s - Sparks Zone`
   },
-  description: 'AI assistant powered by ZoeChat',
+  description: 'AI assistant powered by Spark AI',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',

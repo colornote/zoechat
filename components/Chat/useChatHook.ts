@@ -52,7 +52,7 @@ export const useChatHook = () => {
   const DefaultPersonas = [
     {
       id: 'default',
-      name: 'Zoe AI 助手',
+      name: 'Spark AI 助手',
       role: 'system' as const,
       isDefault: true
     }
