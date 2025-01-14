@@ -26,8 +26,8 @@ const PersonaModal = () => {
 
   return (
     <Dialog.Root open={open!}>
-      <Dialog.Content size="4">
-        <Dialog.Title>Create or Edit Persona Prompt</Dialog.Title>
+      <Dialog.Content size="4" style={{ backgroundColor: 'var(--pink-1)' }}>
+        <Dialog.Title style={{ color: 'var(--pink-11)' }}>Create or Edit Persona Prompt</Dialog.Title>
         <Dialog.Description size="2" mb="4"></Dialog.Description>
         <form onSubmit={formSubmit}>
           <Flex direction="column" gap="3">
@@ -36,12 +36,32 @@ const PersonaModal = () => {
           </Flex>
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
-              <Button variant="soft" type="button" color="gray" onClick={onClosePersonaModal}>
+              <Button 
+                variant="soft" 
+                type="button" 
+                style={{ 
+                  backgroundColor: 'var(--pink-3)',
+                  color: 'var(--pink-11)',
+                  '&:hover': {
+                    backgroundColor: 'var(--pink-4)'
+                  }
+                }}
+                onClick={onClosePersonaModal}
+              >
                 Cancel
               </Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button variant="soft" type="submit">
+              <Button 
+                type="submit"
+                style={{ 
+                  backgroundColor: 'var(--pink-9)',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'var(--pink-10)'
+                  }
+                }}
+              >
                 Save
               </Button>
             </Dialog.Close>

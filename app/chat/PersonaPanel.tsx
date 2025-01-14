@@ -72,9 +72,9 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
         align="center"
         py="3"
         px="4"
-        style={{ backgroundColor: 'var(--gray-a2)' }}
+        style={{ backgroundColor: 'var(--pink-3)' }}
       >
-        <Heading size="4">Persona Store </Heading>
+        <Heading size="4" style={{ color: 'var(--pink-11)' }}>Persona Store</Heading>
         <IconButton
           size="2"
           variant="ghost"
@@ -100,7 +100,18 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
               <MagnifyingGlassIcon height="16" width="16" />
             </TextField.Slot>
           </TextField.Root>
-          <Button size="3" radius="large" variant="surface" onClick={onOpenPersonaModal}>
+          <Button 
+            size="3" 
+            radius="large" 
+            style={{ 
+              backgroundColor: 'var(--pink-9)', 
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'var(--pink-10)'
+              }
+            }} 
+            onClick={onOpenPersonaModal}
+          >
             Create
           </Button>
         </Flex>
@@ -129,6 +140,7 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
                   <IconButton
                     size="2"
                     variant="soft"
+                    style={{ backgroundColor: 'var(--pink-3)', color: 'var(--pink-11)' }}
                     radius="full"
                     onClick={() => {
                       onCreateChat?.(prompt)
@@ -139,7 +151,7 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
                   <IconButton
                     size="2"
                     variant="soft"
-                    color="gray"
+                    style={{ backgroundColor: 'var(--pink-3)', color: 'var(--pink-11)' }}
                     radius="full"
                     onClick={() => {
                       onEditPersona?.(prompt)

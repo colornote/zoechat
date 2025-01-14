@@ -1,10 +1,9 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { Avatar, Flex, IconButton, Tooltip } from '@radix-ui/themes'
+import { Avatar, Flex, IconButton, Tooltip, Text } from '@radix-ui/themes'
 import { FaRegCopy } from 'react-icons/fa'
 import { HiUser } from 'react-icons/hi'
-import { RiRobot2Line } from 'react-icons/ri'
 import { Markdown } from '@/components'
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard'
 import { ChatMessage } from './interface'
@@ -19,7 +18,7 @@ const Message = (props: MessageProps) => {
   const copy = useCopyToClipboard()
   const [tooltipOpen, setTooltipOpen] = useState<boolean>(false)
 
-  const onCopy = useCallback(() => {
+  const handleCopy = useCallback(() => {
     copy(content, (isSuccess) => {
       if (isSuccess) {
         setTooltipOpen(true)
@@ -28,43 +27,39 @@ const Message = (props: MessageProps) => {
   }, [content, copy])
 
   return (
-    <Flex gap="4" className="mb-5">
+    <Flex gap="4" className="mb-5 px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors">
       <Avatar
-        fallback={isUser ? <HiUser className="size-4" /> : <RiRobot2Line className="size-4" />}
-        color={isUser ? undefined : 'green'}
+        fallback={isUser ? 
+          <HiUser className="size-4 text-gray-600" /> : 
+          <div className="size-8 p-1 flex items-center justify-center">
+            <img src="/bot-icon.png" alt="Bot" className="size-full object-contain" />
+          </div>
+        }
+        color={isUser ? undefined : 'pink'}
         size="2"
         radius="full"
+        className="shrink-0 shadow-sm"
       />
-      <div className="flex-1 pt-1 break-all">
-        {isUser ? (
-          <div
-            className="userMessage"
-            dangerouslySetInnerHTML={{
-              __html: content.replace(
-                /<(?!\/?br\/?.+?>|\/?img|\/?table|\/?thead|\/?tbody|\/?tr|\/?td|\/?th.+?>)[^<>]*>/gi,
-                ''
-              )
-            }}
-          ></div>
-        ) : (
-          <Flex direction="column" gap="4">
-            <Markdown>{content}</Markdown>
-            <Flex gap="4" align="center">
-              <Tooltip open={tooltipOpen} content="Copied!">
-                <IconButton
-                  className="cursor-pointer"
-                  variant="outline"
-                  color="gray"
-                  onClick={onCopy}
-                  onMouseLeave={() => setTooltipOpen(false)}
-                >
-                  <FaRegCopy />
-                </IconButton>
-              </Tooltip>
-            </Flex>
-          </Flex>
-        )}
-      </div>
+      <Flex direction="column" gap="1" grow="1">
+        <Flex justify="between" align="center">
+          <Text as="span" size="2" weight="medium" className={`${isUser ? 'text-gray-700' : 'text-tomato-900'}`}>
+            {isUser ? '你' : 'Spark'}
+          </Text>
+          <Tooltip content="复制">
+            <IconButton
+              size="1"
+              variant="ghost"
+              onClick={handleCopy}
+              className="opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <FaRegCopy />
+            </IconButton>
+          </Tooltip>
+        </Flex>
+        <div className="prose prose-sm max-w-none">
+          <Markdown>{content}</Markdown>
+        </div>
+      </Flex>
     </Flex>
   )
 }

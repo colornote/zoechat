@@ -45,20 +45,32 @@ export const Header = () => {
         <Flex align="center" gap="3" className="ml-auto">
           {user ? (
             <>
-              <Avatar
-                color="gray"
-                size="2"
-                radius="full"
-                fallback={
-                  <Link href="">
-                    <FaUser />
-                  </Link>
-                }
-              />
-              <Heading as="h5" size="2" style={{ maxWidth: 200 }}>
-                {user.name}
-              </Heading>
-              <button onClick={logout}>退出</button>
+              <NextLink href="/user">
+                <Avatar
+                  color="gray"
+                  size="2"
+                  radius="full"
+                  className="cursor-pointer hover:opacity-80 transition-opacity"
+                  fallback={
+                    user.avatar ? (
+                      <img src={user.avatar} alt={user.username} className="size-full object-cover" />
+                    ) : (
+                      <FaUser className="size-4" />
+                    )
+                  }
+                />
+              </NextLink>
+              <NextLink href="/me">
+                <Heading as="h5" size="2" style={{ maxWidth: 200 }} className="hover:text-tomato-900 transition-colors">
+                  {user.username || '未设置用户名'}
+                </Heading>
+              </NextLink>
+              <button 
+                onClick={logout}
+                className="text-sm text-gray-500 hover:text-tomato-900 transition-colors"
+              >
+                退出
+              </button>
             </>
           ) : (
             <>
@@ -74,7 +86,7 @@ export const Header = () => {
               </NextLink>
             </>
           )}
-          <Select.Root value={theme} onValueChange={setTheme}>
+          {/* <Select.Root value={theme} onValueChange={setTheme}>
             <Select.Trigger radius="full" />
             <Select.Content>
               <Select.Item value="light">
@@ -87,7 +99,7 @@ export const Header = () => {
                 <FaAdjust />
               </Select.Item>
             </Select.Content>
-          </Select.Root>
+          </Select.Root> */}
         </Flex>
         <Tooltip content="Navigation">
           <IconButton
