@@ -17,6 +17,7 @@ interface User {
 
 interface AuthState {
     user: User | null;
+    isAdmin: boolean;
     login: (email: string, password: string) => Promise<void>;
     register: (email: string, password: string) => Promise<void>;
     logout: () => void;
@@ -121,5 +122,7 @@ export const useAuth = (): AuthState => {
         }
     };
 
-    return { user, login, register, logout, updateUsername, updateAvatar, getCurrentUser };
+    const isAdmin = user?.is_admin || false;
+
+    return { user, isAdmin, login, register, logout, updateUsername, updateAvatar, getCurrentUser };
 };
