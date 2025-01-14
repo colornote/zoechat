@@ -3,7 +3,7 @@
 // Header.tsx
 import { useCallback, useState } from 'react'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
-import { Avatar, Flex, Heading, IconButton, Select, Tooltip } from '@radix-ui/themes'
+import { Avatar, Flex, Heading, IconButton, Select, Tooltip, Text } from '@radix-ui/themes'
 import cs from 'classnames'
 import Image from 'next/image'
 import NextLink from 'next/link'
@@ -86,20 +86,17 @@ export const Header = () => {
               </NextLink>
             </>
           )}
-          {/* <Select.Root value={theme} onValueChange={setTheme}>
-            <Select.Trigger radius="full" />
-            <Select.Content>
-              <Select.Item value="light">
-                <FaRegSun />
-              </Select.Item>
-              <Select.Item value="dark">
-                <FaMoon />
-              </Select.Item>
-              <Select.Item value="system">
-                <FaAdjust />
-              </Select.Item>
-            </Select.Content>
-          </Select.Root> */}
+          {/* Navigation Links */}
+          {user && (
+            <Flex gap="4" className="ml-8">
+              <NextLink href="/home">
+                <Text className="hover:text-tomato-900 transition-colors">首页</Text>
+              </NextLink>
+              <NextLink href="/diary">
+                <Text className="hover:text-tomato-900 transition-colors">日记</Text>
+              </NextLink>
+            </Flex>
+          )}
         </Flex>
         <Tooltip content="Navigation">
           <IconButton

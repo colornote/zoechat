@@ -1,17 +1,16 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Avatar, Button, Card, Flex, Heading, TextField, Text } from '@radix-ui/themes'
+import * as React from 'react'
+import { Button, Card, Heading, Text, Flex } from '@radix-ui/themes'
 import { HiUser } from 'react-icons/hi'
 import { useAuth } from '@/hooks/useAuth'
-import { ImageCropper } from '@/components/ImageCropper'
 
 export default function UserProfile() {
   const { user, updateUsername, updateAvatar } = useAuth()
   const [username, setUsername] = useState(user?.username || '')
   const [isEditing, setIsEditing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const [cropImage, setCropImage] = useState<string | null>(null)
 
   const handleAvatarClick = () => {
     fileInputRef.current?.click()
@@ -25,29 +24,26 @@ export default function UserProfile() {
         return
       }
       
+      // Convert to base64 and update avatar directly
       const reader = new FileReader()
-      reader.onloadend = () => {
-        setCropImage(reader.result as string)
+      reader.onloadend = async () => {
+        try {
+          const base64 = reader.result as string
+          // Convert base64 to blob
+          const response = await fetch(base64)
+          const blob = await response.blob()
+          
+          // Create file from blob
+          const avatarFile = new File([blob], 'avatar.jpg', { type: 'image/jpeg' })
+          
+          // Update avatar
+          await updateAvatar(avatarFile)
+        } catch (error) {
+          console.error('头像上传失败:', error)
+          alert('头像上传失败，请重试')
+        }
       }
       reader.readAsDataURL(file)
-    }
-  }
-
-  const handleCropComplete = async (croppedImage: string) => {
-    try {
-      // Convert base64 to blob
-      const response = await fetch(croppedImage)
-      const blob = await response.blob()
-
-      // Create file from blob
-      const file = new File([blob], 'avatar.jpg', { type: 'image/jpeg' })
-      
-      // Update avatar
-      await updateAvatar(file)
-      setCropImage(null)
-    } catch (error) {
-      console.error('头像上传失败:', error)
-      alert('头像上传失败，请重试')
     }
   }
 
@@ -75,17 +71,18 @@ export default function UserProfile() {
           
           {/* Avatar Section */}
           <Flex direction="column" align="center" gap="2">
-            <Avatar
-              size="7"
-              radius="full"
-              className="cursor-pointer hover:opacity-80 transition-opacity"
+            <div 
+              className="cursor-pointer hover:opacity-80 transition-opacity size-16 rounded-full overflow-hidden"
               onClick={handleAvatarClick}
-              fallback={
-                user?.avatar ? 
-                <img src={user.avatar} alt="User" className="size-full object-cover" /> :
-                <HiUser className="size-6" />
-              }
-            />
+            >
+              {user?.avatar ? (
+                <img src={user.avatar} alt="User" className="size-full object-cover" />
+              ) : (
+                <div className="size-full bg-gray-200 flex items-center justify-center">
+                  <HiUser className="size-8 text-gray-500" />
+                </div>
+              )}
+            </div>
             <input
               type="file"
               ref={fileInputRef}
@@ -104,13 +101,13 @@ export default function UserProfile() {
               </Text>
               {isEditing ? (
                 <Flex gap="2">
-                  <TextField.Root className="flex-1">
-                    <TextField.Input
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="输入新的用户名"
-                    />
-                  </TextField.Root>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="输入新的用户名"
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tomato-500"
+                  />
                   <Button type="submit" color="tomato">
                     保存
                   </Button>
@@ -153,15 +150,6 @@ export default function UserProfile() {
           </Flex>
         </Flex>
       </Card>
-
-      {/* Image Cropper Dialog */}
-      {cropImage && (
-        <ImageCropper
-          image={cropImage}
-          onCropComplete={handleCropComplete}
-          onCancel={() => setCropImage(null)}
-        />
-      )}
     </div>
   )
 }
