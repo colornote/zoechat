@@ -128,10 +128,10 @@ export default function LogListPage() {
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">路径</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">方法</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">位置</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">浏览器</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">时间</th>
                   </tr>
                 </thead>
@@ -144,15 +144,15 @@ export default function LogListPage() {
                           {log.path}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getMethodColor(log.method)}`}>
-                          {log.method}
-                        </span>
-                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{log.username}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.ip}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {log.city && `${log.city}, ${log.country}`}
+                        {log.city && `${log.country} ${log.city}`}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <div className="max-w-xs truncate" title={log.user_agent}>
+                          {log.user_agent}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {new Date(log.created_at).toLocaleString()}
