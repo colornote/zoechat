@@ -41,7 +41,7 @@ export default function DiaryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-screen bg-gray-100 p-4 md:p-8 mb-8">
       <h1 className="text-3xl font-bold mb-4 text-center">我的日记</h1>
       <button className="mb-4 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#cc8d88] hover:bg-[#b47e79] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#cc8d88]" onClick={() => router.push('/diary/new')}>写日记</button>
       {diaries.length === 0 ? (
