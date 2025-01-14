@@ -9,7 +9,11 @@ import { useEffect } from 'react';
 import { metadata } from './metadata';
 import { useIp } from '@/hooks/useIp';
 
-const LogLayout = ({ children }) => {
+interface LogLayoutProps {
+  children: React.ReactNode;
+}
+
+const LogLayout: React.FC<LogLayoutProps> = ({ children }) => {
   const { ipInfo, loading } = useIp();
 
   useEffect(() => {
@@ -52,14 +56,28 @@ const LogLayout = ({ children }) => {
   return <>{children}</>;
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  return <>{children}</>;
+};
+
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
         <ThemesProvider>
           <LogLayout>
             <Header />
-            {children}
+            <Layout>
+              {children}
+            </Layout>
             <Toaster />
           </LogLayout>
         </ThemesProvider>

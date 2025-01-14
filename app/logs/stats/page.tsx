@@ -5,9 +5,18 @@ import { useRouter } from 'next/navigation'
 import AdminLayout from '../../AdminLayout'
 import Link from 'next/link'
 
+interface Stats {
+  total_requests: number;
+  unique_users: number;
+  unique_ips: number;
+  avg_duration: number;
+  status_codes: { status_code: number; count: number }[];
+  top_paths: { path: string; count: number }[];
+}
+
 export default function LogStatsPage() {
   const router = useRouter()
-  const [stats, setStats] = useState(null)
+  const [stats, setStats] = useState<Stats | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

@@ -105,10 +105,7 @@ const PersonaPanel = (_props: PersonaPanelProps) => {
             radius="large" 
             style={{ 
               backgroundColor: 'var(--pink-9)', 
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'var(--pink-10)'
-              }
+              color: 'white'
             }} 
             onClick={onOpenPersonaModal}
           >

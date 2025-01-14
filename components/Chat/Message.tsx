@@ -40,7 +40,7 @@ const Message = (props: MessageProps) => {
         radius="full"
         className="shrink-0 shadow-sm"
       />
-      <Flex direction="column" gap="1" grow="1">
+      <Flex direction="column" gap="1">
         <Flex justify="between" align="center">
           <Text as="span" size="2" weight="medium" className={`${isUser ? 'text-gray-700' : 'text-tomato-900'}`}>
             {isUser ? '你' : 'Spark'}

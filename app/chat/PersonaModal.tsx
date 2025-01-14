@@ -41,10 +41,7 @@ const PersonaModal = () => {
                 type="button" 
                 style={{ 
                   backgroundColor: 'var(--pink-3)',
-                  color: 'var(--pink-11)',
-                  '&:hover': {
-                    backgroundColor: 'var(--pink-4)'
-                  }
+                  color: 'var(--pink-11)'
                 }}
                 onClick={onClosePersonaModal}
               >
@@ -56,10 +53,7 @@ const PersonaModal = () => {
                 type="submit"
                 style={{ 
                   backgroundColor: 'var(--pink-9)',
-                  color: 'white',
-                  '&:hover': {
-                    backgroundColor: 'var(--pink-10)'
-                  }
+                  color: 'white'
                 }}
               >
                 Save
