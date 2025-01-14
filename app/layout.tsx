@@ -1,13 +1,13 @@
 "use client"
+import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react'
 import { Toaster } from 'react-hot-toast'
 import { Header } from '@/components/Header'
+import { useIp } from '@/hooks/useIp';
 import ThemesProvider from '@/providers/ThemesProvider'
 import '@/styles/globals.scss'
 import '@/styles/theme-config.css'
-import { useEffect } from 'react';
-import { metadata } from './metadata';
-import { useIp } from '@/hooks/useIp';
+
 
 interface LogLayoutProps {
   children: React.ReactNode;

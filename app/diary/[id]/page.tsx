@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { HiPencil, HiTrash } from 'react-icons/hi'
 
 interface Diary {
   id: number

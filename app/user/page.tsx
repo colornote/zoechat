@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import AdminLayout from '../AdminLayout'
 import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
 import { FaUser } from 'react-icons/fa'
+import AdminLayout from '../AdminLayout'
 
 interface User {
   id: number
@@ -65,7 +65,7 @@ export default function UserListPage() {
       <AdminLayout>
         <div className="min-h-screen bg-gray-50 p-4">
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <div className="animate-spin rounded-full size-8 border-b-2 border-gray-900"></div>
           </div>
         </div>
       </AdminLayout>
@@ -86,14 +86,14 @@ export default function UserListPage() {
             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+                  <MagnifyingGlassIcon className="size-5 text-gray-400" />
                 </div>
                 <input
                   type="text"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="搜索用户名或邮箱"
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-tomato-600 focus:border-tomato-600 sm:text-sm"
+                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder:text-gray-500 focus:outline-none focus:placeholder:text-gray-400 focus:ring-1 focus:ring-tomato-600 focus:border-tomato-600 sm:text-sm"
                 />
               </div>
             </div>
@@ -115,12 +115,12 @@ export default function UserListPage() {
                     <tr key={user.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="h-10 w-10 flex-shrink-0">
+                          <div className="size-10 shrink-0">
                             {user.avatar ? (
-                              <img className="h-10 w-10 rounded-full object-cover" src={user.avatar} alt="" />
+                              <img className="size-10 rounded-full object-cover" src={user.avatar} alt="" />
                             ) : (
-                              <div className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
-                                <FaUser className="h-5 w-5 text-gray-400" />
+                              <div className="size-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                <FaUser className="size-5 text-gray-400" />
                               </div>
                             )}
                           </div>
@@ -185,10 +185,10 @@ export default function UserListPage() {
                   <button
                     onClick={() => setPage(page > 1 ? page - 1 : 1)}
                     disabled={page === 1}
-                    className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative inline-flex items-center rounded-l-md p-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span className="sr-only">上一页</span>
-                    <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                    <ChevronLeftIcon className="size-5" aria-hidden="true" />
                   </button>
                   {/* Page numbers */}
                   {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
@@ -219,10 +219,10 @@ export default function UserListPage() {
                   <button
                     onClick={() => setPage(page < pagination.totalPages ? page + 1 : pagination.totalPages)}
                     disabled={page === pagination.totalPages}
-                    className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="relative inline-flex items-center rounded-r-md p-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span className="sr-only">下一页</span>
-                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                    <ChevronRightIcon className="size-5" aria-hidden="true" />
                   </button>
                 </nav>
               </div>

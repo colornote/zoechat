@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import AdminLayout from '../../AdminLayout'
 import { ArrowLeftIcon, CalendarIcon, EnvelopeClosedIcon, PersonIcon, FileTextIcon } from '@radix-ui/react-icons'
+import { useRouter } from 'next/navigation'
 import { FaUser } from 'react-icons/fa'
+import AdminLayout from '../../AdminLayout'
 
 interface User {
   id: number
@@ -54,7 +54,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
       <AdminLayout>
         <div className="min-h-screen bg-gray-50 p-4">
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <div className="animate-spin rounded-full size-8 border-b-2 border-gray-900"></div>
           </div>
         </div>
       </AdminLayout>
@@ -71,7 +71,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
               onClick={() => router.back()}
               className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-tomato-600 hover:bg-tomato-700"
             >
-              <ArrowLeftIcon className="mr-2 h-4 w-4" />
+              <ArrowLeftIcon className="mr-2 size-4" />
               返回用户列表
             </button>
           </div>
@@ -89,7 +89,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
             onClick={() => router.back()}
             className="mb-6 inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tomato-500"
           >
-            <ArrowLeftIcon className="mr-2 h-4 w-4" />
+            <ArrowLeftIcon className="mr-2 size-4" />
             返回用户列表
           </button>
 
@@ -98,16 +98,16 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
             {/* 顶部个人信息区域 */}
             <div className="px-4 py-5 sm:px-6 bg-gray-50 border-b border-gray-200">
               <div className="flex items-center">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   {user.avatar ? (
                     <img
-                      className="h-20 w-20 rounded-full object-cover border-4 border-white shadow-lg"
+                      className="size-20 rounded-full object-cover border-4 border-white shadow-lg"
                       src={user.avatar}
                       alt={user.username}
                     />
                   ) : (
-                    <div className="h-20 w-20 rounded-full bg-gray-100 flex items-center justify-center border-4 border-white shadow-lg">
-                      <FaUser className="h-10 w-10 text-gray-400" />
+                    <div className="size-20 rounded-full bg-gray-100 flex items-center justify-center border-4 border-white shadow-lg">
+                      <FaUser className="size-10 text-gray-400" />
                     </div>
                   )}
                 </div>
@@ -130,7 +130,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
               <dl className="sm:divide-y sm:divide-gray-200">
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
-                    <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
+                    <EnvelopeClosedIcon className="mr-2 size-4" />
                     电子邮箱
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{user.email}</dd>
@@ -138,7 +138,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
 
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
-                    <FileTextIcon className="mr-2 h-4 w-4" />
+                    <FileTextIcon className="mr-2 size-4" />
                     日记数量
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
@@ -148,7 +148,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
 
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
-                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    <CalendarIcon className="mr-2 size-4" />
                     注册时间
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
@@ -158,7 +158,7 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
 
                 <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
-                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    <CalendarIcon className="mr-2 size-4" />
                     最后更新
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">

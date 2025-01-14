@@ -15,12 +15,12 @@ export default function Home() {
         <div className="text-center mb-16 relative">
           {/* Decorative elements */}
           <div className="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 text-[#cc8d88] opacity-20">
-            <svg className="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="size-24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 22c6.627 0 12-5.373 12-12S18.627-2 12-2 0 3.373 0 10s5.373 12 12 12zm0-3a9 9 0 110-18 9 9 0 010 18zM7.5 8.5c0-1.105.672-2 1.5-2s1.5.895 1.5 2S9.828 10.5 9 10.5s-1.5-.895-1.5-2zm6 0c0-1.105.672-2 1.5-2s1.5.895 1.5 2-.672 2-1.5 2-1.5-.895-1.5-2zm-7.021 4.149a.5.5 0 01.707-.707c1.414 1.414 3.314 2.207 5.314 2.207s3.9-.793 5.314-2.207a.5.5 0 01.707.707c-1.607 1.607-3.714 2.5-6.021 2.5s-4.414-.893-6.021-2.5z"/>
             </svg>
           </div>
           <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 text-[#cc8d88] opacity-20">
-            <svg className="w-32 h-32" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="size-32" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
           </div>
@@ -36,12 +36,12 @@ export default function Home() {
         <div className="grid md:grid-cols-3 gap-8 mb-16 relative">
           {/* Decorative floating elements */}
           <div className="absolute -left-8 top-1/2 -translate-y-1/2 text-[#cc8d88] opacity-10">
-            <svg className="w-16 h-16 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="size-16 animate-bounce" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313-12.454z"/>
             </svg>
           </div>
           <div className="absolute -right-8 top-1/3 -translate-y-1/2 text-[#cc8d88] opacity-10">
-            <svg className="w-20 h-20 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="size-20 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             </svg>
           </div>
@@ -80,12 +80,12 @@ export default function Home() {
         <div className="bg-pink-50 rounded-2xl p-8 text-center relative overflow-hidden">
           {/* Decorative elements */}
           <div className="absolute left-4 bottom-4 text-[#cc8d88] opacity-10">
-            <svg className="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="size-24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
             </svg>
           </div>
           <div className="absolute right-4 top-4 text-[#cc8d88] opacity-10">
-            <svg className="w-16 h-16 animate-spin-slow" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="size-16 animate-spin-slow" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm0-2a8 8 0 100-16 8 8 0 000 16z"/>
             </svg>
           </div>
