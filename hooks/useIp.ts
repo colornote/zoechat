@@ -12,18 +12,26 @@ export const useIp = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const cachedIpInfo = localStorage.getItem('ipInfo');
+    if (cachedIpInfo) {
+      setIpInfo(JSON.parse(cachedIpInfo));
+      setLoading(false);
+      return;
+    }
+
     const fetchIp = async () => {
       try {
         // 使用 ipapi.co 的免费服务
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
-        
-        setIpInfo({
+        const newIpInfo: IpInfo = {
           ip: data.ip,
           country: data.country_name,
           region: data.region,
           city: data.city,
-        });
+        };
+        setIpInfo(newIpInfo);
+        localStorage.setItem('ipInfo', JSON.stringify(newIpInfo));
       } catch (error) {
         console.error('获取IP信息失败:', error);
       } finally {

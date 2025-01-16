@@ -1,5 +1,5 @@
 "use client"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react'
 import { Toaster } from 'react-hot-toast'
 import { Header } from '@/components/Header'
@@ -53,7 +53,11 @@ const LogLayout: React.FC<LogLayoutProps> = ({ children }) => {
     return () => clearInterval(intervalId); // 清理定时器
   }, [ipInfo, loading]);
 
-  return <>{children}</>;
+  return (
+    <div>
+      {children}
+    </div>
+  );
 };
 
 interface LayoutProps {
