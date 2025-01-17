@@ -96,7 +96,7 @@ export const Header = () => {
                   {user.username || '未设置用户名'}
                 </Heading>
               </NextLink>
-              <NextLink href="/user">
+              <NextLink href="/me">
                 <Avatar
                   color="gray"
                   size="2"
