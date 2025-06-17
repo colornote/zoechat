@@ -66,11 +66,11 @@ const getApiConfig = () => {
     apiKey = process.env.AZURE_OPENAI_API_KEY || ''
     model = '' // Azure Open AI always ignores the model and decides based on the deployment name passed through.
   } else {
-    let apiBaseUrl = process.env.OPENAI_API_BASE_URL || 'https://api.openai.com'
+    let apiBaseUrl = process.env.OPENAI_API_BASE_URL || 'https://api.deepseek.com'
     if (apiBaseUrl && apiBaseUrl.endsWith('/')) {
       apiBaseUrl = apiBaseUrl.slice(0, -1)
     }
-    apiUrl = `${apiBaseUrl}/v1/chat/completions`
+    apiUrl = `${apiBaseUrl}/chat/completions`
     apiKey = process.env.OPENAI_API_KEY || ''
     model = process.env.OPENAI_MODEL || 'gpt-3.5-turbo'
   }
@@ -105,12 +105,16 @@ const getOpenAIStream = async (
     })
   })
 
+  console.log('API key used:', apiKey ? 'Provided' : 'Not provided')
+  console.log('API URL:', apiUrl)
+  console.log('Model used:', model)
+
   if (res.status !== 200) {
     const statusText = res.statusText
     const responseBody = await res.text()
-    console.error(`OpenAI API response error: ${responseBody}`)
+    console.error(` API response error: ${responseBody} + Status: ${res.status} ${statusText}`)
     throw new Error(
-      `The OpenAI API has encountered an error with a status code of ${res.status} ${statusText}: ${responseBody}`
+      `The API has encountered an error with a status code of ${res.status} ${statusText}: ${responseBody}`
     )
   }
 
